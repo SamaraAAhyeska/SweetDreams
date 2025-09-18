@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sweet Dreams</title>
+  <style>
+    :root {
+      --rosa-claro-1: #ffe6f0;
+      --rosa-claro-2: #ffccdd;
+      --rosa-claro-3: #ffb3cc;
+      --rosa-claro-4: #ff99bb;
+      --rosa-escuro: #e94694;
+      --cinza-claro: #f9f9f9;
+      --cinza-medio: #ddd;
+      --branco: #fff;
+      --preto: #333;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--rosa-escuro);
+      color: var(--rosa-claro-1);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .topo-central {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo {
+      height: 60px;
+      width: 60px;
+      object-fit: contain;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(204, 20, 108, 0.4);
+    }
+    header {
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 25px;
+      user-select: none;
+    }
+    .menu-btn,
+    .btn-login,
+    .btn-carrinho {
+      background: var(--rosa-claro-3);
+      color: var(--rosa-escuro);
+      border: none;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+    }
+    .menu-btn:hover,
+    .btn-login:hover,
+    .btn-carrinho:hover {
+      background: var(--rosa-claro-4);
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .carrossel {
+      position: relative;
+      max-width: 900px;
+      width: 100%;
+      border-radius: 5px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(204, 20, 108, 0.35);
+      margin-bottom: 0;
+    }
+    .carrossel-inner {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+    .carrossel-item {
+      flex: 0 0 33.3333%;
+      padding: 0 5px;
+    }
+    .carrossel-item img {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      display: block;
+      border-radius: 15px;
+    }
+    .carrossel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(204,20,108,0.7);
+      border: none;
+      color: var(--branco);
+      font-size: 2rem;
+      padding: 10px 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      z-index: 10;
+    }
+    .carrossel-btn:hover {
+      background: rgba(204,20,108,0.9);
+    }
+    .carrossel-prev { left: 15px; }
+    .carrossel-next { right: 15px; }
+    .main-content {
+      max-width: 900px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      margin-top: 25px;
+    }
+    .produtos-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 20px;
+    }
+    .produto {
+      background: var(--rosa-claro-2);
+      border-radius: 15px;
+      padding: 10px;
+      box-shadow: inset 0 0 6px rgba(255, 204, 221, 0.7);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .produto img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 10px;
+    }
+    .produto-nome {
+      font-weight: 600;
+      font-size: 1rem;
+      text-align: center;
+    }
+    .produtos-descricao {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .descricao-item {
+      background: var(--rosa-claro-3);
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 0 4px 10px rgba(204,20,108,0.2);
+    }
+    .descricao-item h3 {
+      margin-top: 0;
+    }
+    footer {
+      margin-top: 40px;
+      padding: 20px;
+      background: var(--rosa-claro-2);
+      text-align: center;
+      width: 100%;
+      max-width: 900px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      color: var(--preto);
+    }
+    .mensagem-confirmacao {
+      margin-top: 20px;
+      background-color: var(--rosa-claro-4);
+      border-left: 5px solid var(--rosa-escuro);
+      padding: 15px;
+      border-radius: 10px;
+      max-width: 900px;
+      width: 100%;
+      font-size: 1rem;
+      text-align: center;
+    }
+    @media (max-width: 700px) {
+      .main-content {
+        gap: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topo-central">
+    <div class="logo-area">
+      <img src = "../Imagens/LogoSweet (5).png" alt="Logo Sweet Dreams" class="logo" />
+      <h1>Sweet Dreams</h1>
+    </div>
+  </div>
+
+  <header>
+    <button class="menu-btn" aria-label="Menu">☰ Menu</button>
+    <div class="header-actions">
+      <button class="btn-login">Login</button>
+      <button class="btn-carrinho" aria-label="Carrinho">🛒</button>
+    </div>
+  </header>
+
+  <div class="carrossel" aria-label="Carrossel de Imagens">
+    <button class="carrossel-btn carrossel-prev" aria-label="Imagem anterior">&#10094;</button>
+    <div class="carrossel-inner" id="carrossel-inner">
+      <div class="carrossel-item"><img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="Bolo decorado rosa 1"></div>
+      <div class="carrossel-item"><img src="https://images.unsplash.com/photo-1523983304598-43023eecadf1?auto=format&fit=crop&w=800&q=80" alt="Doces delicados 2"></div>
+      <div class="carrossel-item"><img src="https://images.unsplash.com/photo-1527515637461-43be1cb24eb0?auto=format&fit=crop&w=800&q=80" alt="Cupcake rosa 3"></div>
+    </div>
+    <button class="carrossel-btn carrossel-next" aria-label="Próxima imagem">&#10095;</button>
+  </div>
+
+  <div class="main-content">
+    <section class="produtos-container" aria-label="Produtos em destaque">
+      <div class="produto"><img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=140&q=80" alt="Bolo de Morango"><div class="produto-nome">Bolo de Morango</div></div>
+      <div class="produto"><img src="https://images.unsplash.com/photo-1527515637461-43be1cb24eb0?auto=format&fit=crop&w=140&q=80" alt="Cupcake Rosa"><div class="produto-nome">Cupcake Rosa</div></div>
+      <div class="produto"><img src="https://images.unsplash.com/photo-1562440499-f63ee9182bbe?auto=format&fit=crop&w=140&q=80" alt="Cookie de Baunilha"><div class="produto-nome">Cookie de Baunilha</div></div>
+      <div class="produto"><img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=140&q=80" alt="Trufa Recheada"><div class="produto-nome">Trufa Recheada</div></div>
+    </section>
+
+    <section class="produtos-descricao">
+      <div class="descricao-item"><h3>Bolo de Chocolate</h3><p>Feito com chocolate meio amargo e cobertura cremosa. Ideal para aniversários.</p></div>
+      <div class="descricao-item"><h3>Mini Cheesecake</h3><p>Cheesecake com calda de frutas vermelhas. Delicioso e delicado.</p></div>
+      <div class="descricao-item"><h3>Doce de Leite no Copinho</h3><p>Doce tradicional em porção pequena para festas e lembrancinhas.</p></div>
+      <div class="descricao-item"><h3>Beijinho Gourmet</h3><p>Beijinho com coco fresco e cravinho, enrolado no açúcar cristal.</p></div>
+    </section>
+
+   
+  </div>
+
+  <footer>
+    &copy; 2025 Sweet Dreams. Todos os direitos reservados. | Desenvolvido com carinho 💖
+  </footer>
+
+  <!-- Carrossel -->
+  <script>
+    const carrosselInner = document.getElementById('carrossel-inner');
+    const btnPrev = document.querySelector('.carrossel-prev');
+    const btnNext = document.querySelector('.carrossel-next');
+    let indiceAtual = 0;
+    const totalItems = carrosselInner.children.length;
+    const itemsPorPagina = 3;
+    const totalPaginas = Math.ceil(totalItems / itemsPorPagina);
+
+    function atualizarCarrossel() {
+      carrosselInner.style.transform = `translateX(-${indiceAtual * (100 / itemsPorPagina)}%)`;
+    }
+
+    btnPrev.addEventListener('click', () => {
+      indiceAtual = (indiceAtual - 1 + totalPaginas) % totalPaginas;
+      atualizarCarrossel();
+    });
+
+    btnNext.addEventListener('click', () => {
+      indiceAtual = (indiceAtual + 1) % totalPaginas;
+      atualizarCarrossel();
+    });
+
+    atualizarCarrossel();
+  </script>
+
+  <!-- Redirecionamento do botão Login -->
+  <script>
+    document.querySelector('.btn-login').addEventListener('click', () => {
+      window.location.href = '/login';
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cadastro de Produtos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fce4ec;
+      margin: 0;
+      padding: 40px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #c2185b;
+    }
+
+    .form-container {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: auto;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      font-weight: bold;
+      color: #880e4f;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      border: 2px solid #f8bbd0;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      background-color: #ec407a;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
+    button:hover {
+      background-color: #c2185b;
+    }
+
+    .actions button {
+      margin-right: 5px;
+      background-color: #ab47bc;
+    }
+
+    .actions button:hover {
+      background-color: #8e24aa;
+    }
+
+    .delete-btn {
+      background-color: #e53935;
+    }
+
+    .delete-btn:hover {
+      background-color: #c62828;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border: 2px solid #f8bbd0;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 800px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .modal-close {
+      float: right;
+      font-size: 20px;
+      font-weight: bold;
+      color: #e53935;
+      cursor: pointer;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #f8bbd0;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f48fb1;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Cadastro de Produtos em Estoque</h2>
+
+  <!-- FORMULÁRIO DE CADASTRO -->
+  <div class="form-container">
+    <div class="form-group">
+      <label for="id">ID</label>
+      <input type="text" id="id" placeholder="Ex: 001" />
+    </div>
+    <div class="form-group">
+      <label for="produto">Produto</label>
+      <input type="text" id="produto" placeholder="Nome do produto" />
+    </div>
+    <div class="form-group">
+      <label for="descricao">Descrição</label>
+      <input type="text" id="descricao" placeholder="Descrição do produto" />
+    </div>
+    <div class="form-group">
+      <label for="preco">Preço (R$)</label>
+      <input type="number" id="preco" placeholder="Ex: 99.90" />
+    </div>
+    <button onclick="adicionarProduto()">Cadastrar</button>
+    <button onclick="limparFormulario()">Limpar</button>
+  </div>
+
+  <!-- BOTÃO DE PESQUISA -->
+  <div style="text-align: center; margin-top: 30px;">
+    <button onclick="abrirModal()">🔍 Pesquisar Produtos</button>
+  </div>
+
+  <!-- MODAL DE PESQUISA -->
+  <div id="modalPesquisa" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="fecharModal()">×</span>
+      <h3 style="color: #c2185b;">Estoque de Produtos</h3>
+      <input type="text" id="pesquisa" placeholder="Pesquisar por nome ou ID..." onkeyup="filtrarPesquisa()" style="width:100%; padding:10px; margin-bottom:15px; border-radius:5px; border:1px solid #ccc;"/>
+
+      <table id="tabelaPesquisa">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Produto</th>
+            <th>Descrição</th>
+            <th>Preço (R$)</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    let produtos = [];
+    let editandoIndex = null;
+
+    function adicionarProduto() {
+      const id = document.getElementById("id").value.trim();
+      const produto = document.getElementById("produto").value.trim();
+      const descricao = document.getElementById("descricao").value.trim();
+      const preco = parseFloat(document.getElementById("preco").value.trim());
+
+      if (!id || !produto || !descricao || isNaN(preco)) {
+        alert("Preencha todos os campos corretamente!");
+        return;
+      }
+
+      const novoProduto = { id, produto, descricao, preco };
+
+      if (editandoIndex !== null) {
+        produtos[editandoIndex] = novoProduto;
+        editandoIndex = null;
+      } else {
+        produtos.push(novoProduto);
+      }
+
+      limparFormulario();
+      alert("Produto salvo com sucesso!");
+    }
+
+    function limparFormulario() {
+      document.getElementById("id").value = "";
+      document.getElementById("produto").value = "";
+      document.getElementById("descricao").value = "";
+      document.getElementById("preco").value = "";
+      editandoIndex = null;
+    }
+
+    function editarProduto(index) {
+      const produto = produtos[index];
+      document.getElementById("id").value = produto.id;
+      document.getElementById("produto").value = produto.produto;
+      document.getElementById("descricao").value = produto.descricao;
+      document.getElementById("preco").value = produto.preco;
+      editandoIndex = index;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function excluirProduto(index) {
+      if (confirm("Tem certeza que deseja excluir este produto?")) {
+        produtos.splice(index, 1);
+        atualizarModal();
+      }
+    }
+
+    function abrirModal() {
+      atualizarModal();
+      document.getElementById("modalPesquisa").style.display = "block";
+    }
+
+    function fecharModal() {
+      document.getElementById("modalPesquisa").style.display = "none";
+    }
+
+    function atualizarModal() {
+      const tbody = document.querySelector("#tabelaPesquisa tbody");
+      tbody.innerHTML = "";
+
+      produtos.forEach((item, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${item.id}</td>
+          <td>${item.produto}</td>
+          <td>${item.descricao}</td>
+          <td>R$ ${item.preco.toFixed(2)}</td>
+        `;
+        row.onclick = () => {
+          editarProduto(index);
+          fecharModal();
+        };
+        tbody.appendChild(row);
+      });
+    }
+
+    function filtrarPesquisa() {
+      const termo = document.getElementById("pesquisa").value.toLowerCase();
+      const linhas = document.querySelectorAll("#tabelaPesquisa tbody tr");
+
+      linhas.forEach((linha) => {
+        const textoLinha = linha.innerText.toLowerCase();
+        linha.style.display = textoLinha.includes(termo) ? "" : "none";
+      });
+    }
+  </script>
+
+</body>
+</html>

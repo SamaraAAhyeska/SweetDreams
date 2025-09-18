@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestão de Pedidos - Funcionário</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .pedido {
+      background: white;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .pedido h2 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+    .pedido ul {
+      padding-left: 20px;
+    }
+    .acoes button {
+      margin: 5px;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .aceitar { background: #4CAF50; color: white; }
+    .negar { background: #E53935; color: white; }
+    .atualizar { background: #2196F3; color: white; }
+  </style>
+</head>
+<body>
+
+  <h1>Painel do Funcionário</h1>
+
+  <div id="lista-pedidos">
+    <!-- Pedidos carregados dinamicamente -->
+  </div>
+
+  <script>
+    // Exemplo de pedidos simulados (virão do backend depois)
+    const pedidos = [
+      {id: 1, cliente: "Maria", itens: ["Bolo de chocolate", "Café"], status: "Pendente"},
+      {id: 2, cliente: "João", itens: ["Pão de queijo", "Suco"], status: "Pendente"}
+    ];
+
+    const lista = document.getElementById("lista-pedidos");
+
+    function renderPedidos() {
+      lista.innerHTML = "";
+      pedidos.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "pedido";
+        div.innerHTML = `
+          <h2>Pedido #${p.id} - ${p.cliente}</h2>
+          <p>Status: <strong>${p.status}</strong></p>
+          <ul>${p.itens.map(item => `<li>${item}</li>`).join("")}</ul>
+          <div class="acoes">
+            ${p.status === "Pendente" ? `
+              <button class="aceitar" onclick="aceitarPedido(${p.id})">Aceitar</button>
+              <button class="negar" onclick="negarPedido(${p.id})">Negar</button>
+            ` : ""}
+            ${p.status === "Separando o pedido" ? `
+              <button class="atualizar" onclick="atualizarPedido(${p.id})">Disponível para retirada</button>
+            ` : ""}
+          </div>
+        `;
+        lista.appendChild(div);
+      });
+    }
+
+    function aceitarPedido(id) {
+      const pedido = pedidos.find(p => p.id === id);
+      pedido.status = "Separando o pedido";
+      renderPedidos();
+    }
+
+    function negarPedido(id) {
+      const pedido = pedidos.find(p => p.id === id);
+      pedido.status = "Negado";
+      renderPedidos();
+    }
+
+    function atualizarPedido(id) {
+      const pedido = pedidos.find(p => p.id === id);
+      pedido.status = "Disponível para retirada";
+      renderPedidos();
+    }
+
+    renderPedidos();
+  </script>
+</body>
+</html>
