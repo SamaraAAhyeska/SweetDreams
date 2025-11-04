@@ -19,7 +19,7 @@ if (isset($_GET["fun"])) {
         include_once("Controller/ExcluirCliente.php"); //op == sim
         $pag = new ExcluirCliente();
     } elseif ($fun == "listar") {
-        include_once("Controller/Listarcliente.php");
+        include_once("Controller/Listar_cliente.php");
         $pag = new ListarCliente();
     } elseif ($fun == "exibir") {
         include_once("Controller/ExibirCliente.php");
