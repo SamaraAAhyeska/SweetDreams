@@ -7,41 +7,41 @@ $conn = $connFactory->getConnection();
 
 // Passo 1: receber o ID
 if (!isset($_GET['id'])) {
-    header("Location: cliente.php?fun=listar&status=" . urlencode("ID inválido!"));
+    header("Location: Confeiteira.php?fun=listar&status=" . urlencode("ID inválido!"));
     exit;
 }
 
 $id = (int)$_GET['id'];
 
-// Passo 2: buscar dados do cliente
-$sql = "SELECT * FROM cliente WHERE id = :id";
+// Passo 2: buscar dados do confeiteira
+$sql = "SELECT * FROM confeiteira WHERE id = :id";
 $stmt = $conn->prepare($sql);
 $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 $stmt->execute();
 $cont = $stmt->fetch(PDO::FETCH_OBJ);
 
 if (!$cont) {
-    header("Location: Cliente.php?fun=listar&status=" . urlencode("Cliente não encontrado!"));
+    header("Location: Confeiteira.php?fun=listar&status=" . urlencode("confeiteira não encontrado!"));
     exit;
 }
 
 // Passo 3: se confirmou exclusão, deletar
 if (isset($_GET['conf']) && $_GET['conf'] === 'sim') {
-    $del = "DELETE FROM cliente WHERE id = :id";
+    $del = "DELETE FROM confeiteira WHERE id = :id";
     $stmtDel = $conn->prepare($del);
     $stmtDel->bindParam(':id', $id, PDO::PARAM_INT);
 
     if ($stmtDel->execute()) {
-        $status = "Cliente excluído com sucesso!";
+        $status = "confeiteira excluído com sucesso!";
     } else {
-        $status = "Erro ao excluir cliente!";
+        $status = "Erro ao excluir confeiteira!";
     }
 
     // Fecha a conexão
     $conn = null;
 
     // ✅ Redireciona corretamente para a listagem com mensagem
-    header("Location: ../Cliente.php?fun=listar&status=" . urlencode($status));
+    header("Location: ../Confeiteira.php?fun=listar&status=" . urlencode($status));
     exit;
 }
 
@@ -113,7 +113,7 @@ if (isset($_GET['conf']) && $_GET['conf'] === 'sim') {
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <h1>Confirmar exclusão de <?= htmlspecialchars($cont->nome); ?></h1>
-            <p>Tem certeza de que deseja excluir este cliente? Esta ação não pode ser desfeita.</p>
+            <p>Tem certeza de que deseja excluir este funcionário? Esta ação não pode ser desfeita.</p>
             <button onclick="confirmDelete()">Sim</button>
             <button onclick="closeModal()">Não</button>
         </div>
@@ -128,12 +128,12 @@ if (isset($_GET['conf']) && $_GET['conf'] === 'sim') {
         // Fechar modal e voltar para listagem
         function closeModal() {
             document.getElementById('confirmModal').style.display = 'none';
-            window.location.href = '../Cliente.php?fun=listar';
+            window.location.href = '../Confeiteira.php?fun=listar';
         }
 
         // Confirmar exclusão
         function confirmDelete() {
-            window.location.href = 'AdminConfirmarExclusao.php?id=<?= $cont->id ?>&conf=sim';
+            window.location.href = 'Excluirconf.php?id=<?= $cont->id ?>&conf=sim';
         }
     </script>
 

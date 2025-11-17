@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Listagem de Clientes</title>
+    <title>Listagem de Confeiteira</title>
     <style>
         body {
             font-family: Arial;
@@ -56,7 +56,7 @@
     }
     ?>
 
-    <a href="Cliente.php?fun=cadastrar">Cadastrar Novo Cliente</a>
+    <a href="Confeiteira.php?fun=cadastrar">Cadastrar Nova(o) Confeiteira(o)</a>
     <br><br>
 
     <table>
@@ -68,21 +68,23 @@
             <th>Idade</th>
             <th>Cidade</th>
             <th>Telefone</th>
+            <th>Encomenda</th>
             <th>Ações</th>
         </tr>
 
         <?php foreach ($lista as $c): ?>
             <tr>
-                <td><?= $c->getId(); ?></td>
-                <td><a href="../Cliente.php?fun=exibir&id=<?= $c->getId(); ?>"><?= $c->getNome(); ?></a></td>
+                <td><?= $c->getId(); ?></td> 
+                <td><a href="../Confeiteira.php?fun=exibir&id=<?= $c->getId(); ?>"><?= $c->getNome(); ?></a></td>
                 <td><?= $c->getCpf(); ?></td>
                 <td><?= $c->getEndereco(); ?></td>
                 <td><?= $c->getIdade(); ?></td>
                 <td><?= $c->getCidade(); ?></td>
                 <td><?= $c->getTelefone(); ?></td>
+                <td><?= $c->getEncomenda(); ?></td>
                 <td class="acoes">
-                    <a href="view/AdminAlterarCliente.php?id=<?= $c->getId(); ?>">Editar</a>
-                    <a href="view/AdminConfirmarExclusao.php?id=<?= $c->getId(); ?>">Excluir</a>
+                    <a href="view/AlterarConf.php?id=<?= $c->getId(); ?>">Editar</a>
+                    <a href="view/ExcluirConf.php?id=<?= $c->getId(); ?>">Excluir</a>
                 </td>
             </tr>
         <?php endforeach; ?>

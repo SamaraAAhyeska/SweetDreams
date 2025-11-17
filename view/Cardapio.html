@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cardápio - Sweet Dreams</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #fff0f5;
+    }
+
+    header {
+      background-color: #f8bbd0;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo-titulo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo-titulo img {
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+    }
+
+    .cart {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: red;
+      color: white;
+      border-radius: 50%;
+      padding: 2px 6px;
+      font-size: 12px;
+    }
+
+    main {
+      padding: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+    }
+
+    .produto {
+      background-color: #fff;
+      border-radius: 12px;
+      width: 250px;
+      padding: 1rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .produto img {
+      width: 100%;
+      border-radius: 12px;
+    }
+
+    .produto button {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #ec407a;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .produto button:hover {
+      background-color: #c2185b;
+    }
+
+    .carrinho-modal {
+      position: absolute;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 600px;
+      display: none;
+      z-index: 10;
+      padding: 1rem;
+    }
+
+    .item-carrinho {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #eee;
+      padding: 0.5rem 0;
+    }
+
+    .item-carrinho img {
+      width: 50px;
+      height: 50px;
+      border-radius: 8px;
+      object-fit: cover;
+      margin-right: 10px;
+    }
+
+    .controles {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .controles button {
+      background-color: #ec407a;
+      color: white;
+      border: none;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .fechar-btn {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      color: #c2185b;
+      cursor: pointer;
+    }
+
+    .fechar-btn:hover {
+      color: #e91e63;
+    }
+
+    .finalizar-btn {
+      margin-top: 1rem;
+      width: 100%;
+      padding: 10px;
+      background-color: #c2185b;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .finalizar-btn:hover {
+      background-color: #ad1457;
+    }
+
+    .total-carrinho {
+      text-align: right;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-titulo">
+      <img src="LogoSweet (3).png" alt="Logo" />
+      <h1>Sweet Dreams</h1>
+    </div>
+    <div class="cart" onclick="toggleCarrinho()">
+      <i class="fas fa-shopping-cart fa-2x"></i>
+      <span class="cart-count" id="cartCount">0</span>
+    </div>
+  </header>
+
+  <div class="carrinho-modal" id="carrinhoModal">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <h3>Seu Carrinho</h3>
+      <button onclick="toggleCarrinho()" class="fechar-btn"><i class="fas fa-times"></i></button>
+    </div>
+    <div id="listaCarrinho"></div>
+    <div class="total-carrinho" id="totalCarrinho">Total: R$ 0,00</div>
+    <button class="finalizar-btn" onclick="irParaFinalizar()">Finalizar Compra</button>
+  </div>
+
+  <main>
+    <div class="produto">
+      <img src="images/brigadeiro.jpg" alt="Brigadeiro" />
+      <h3>Brigadeiro Gourmet</h3>
+      <p>Chocolate belga e confeitos especiais.</p>
+      <strong>R$ 3,00</strong><br />
+      <button onclick="adicionarAoCarrinho('Brigadeiro Gourmet', 'images/brigadeiro.jpg', 3.00)">
+        <i class="fas fa-cart-plus"></i> Adicionar
+      </button>
+    </div>
+    <div class="produto">
+      <img src="images/bolo.jpg" alt="Bolo no Pote" />
+      <h3>Bolo no Pote</h3>
+      <p>Com recheio de morango e chantilly.</p>
+      <strong>R$ 8,00</strong><br />
+      <button onclick="adicionarAoCarrinho('Bolo no Pote', 'images/bolo.jpg', 8.00)">
+        <i class="fas fa-cart-plus"></i> Adicionar
+      </button>
+    </div>
+    <div class="produto">
+      <img src="images/trufa.jpg" alt="Trufa" />
+      <h3>Trufa de Chocolate</h3>
+      <p>Recheio cremoso meio amargo.</p>
+      <strong>R$ 5,00</strong><br />
+      <button onclick="adicionarAoCarrinho('Trufa de Chocolate', 'images/trufa.jpg', 5.00)">
+        <i class="fas fa-cart-plus"></i> Adicionar
+      </button>
+    </div>
+  </main>
+
+  <script>
+    const carrinho = {};
+
+    function adicionarAoCarrinho(produto, imagem, preco) {
+      if (!carrinho[produto]) {
+        carrinho[produto] = { quantidade: 0, imagem, preco };
+      }
+      carrinho[produto].quantidade++;
+      atualizarCarrinho();
+    }
+
+    function atualizarCarrinho() {
+      const totalItens = Object.values(carrinho).reduce((a, b) => a + b.quantidade, 0);
+      document.getElementById('cartCount').innerText = totalItens;
+
+      const lista = document.getElementById('listaCarrinho');
+      lista.innerHTML = '';
+
+      let total = 0;
+
+      for (let item in carrinho) {
+        const dados = carrinho[item];
+        total += dados.quantidade * dados.preco;
+
+        const div = document.createElement('div');
+        div.className = 'item-carrinho';
+
+        div.innerHTML = `
+          <div style="display: flex; align-items: center;">
+            <img src="${dados.imagem}" alt="${item}" />
+            <span>${item}</span>
+          </div>
+          <div class="controles">
+            <button onclick="alterarQuantidade('${item}', -1)">-</button>
+            <span>${dados.quantidade}</span>
+            <button onclick="alterarQuantidade('${item}', 1)">+</button>
+            <button onclick="removerItem('${item}')"><i class='fas fa-trash'></i></button>
+          </div>
+        `;
+        lista.appendChild(div);
+      }
+
+      document.getElementById('totalCarrinho').innerText = `Total: R$ ${total.toFixed(2).replace('.', ',')}`;
+    }
+
+    function alterarQuantidade(item, delta) {
+      if (carrinho[item]) {
+        carrinho[item].quantidade += delta;
+        if (carrinho[item].quantidade <= 0) delete carrinho[item];
+        atualizarCarrinho();
+      }
+    }
+
+    function removerItem(item) {
+      delete carrinho[item];
+      atualizarCarrinho();
+    }
+
+    function toggleCarrinho() {
+      const modal = document.getElementById('carrinhoModal');
+      modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function irParaFinalizar() {
+      localStorage.setItem('carrinho', JSON.stringify(carrinho));
+      window.location.href = 'finalizar.html';
+    }
+  </script>
+</body>
+</html>

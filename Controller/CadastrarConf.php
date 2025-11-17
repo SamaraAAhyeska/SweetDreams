@@ -1,8 +1,8 @@
 <?php
-include_once(__DIR__ . "/../Model/FuncionarioDAO.php");
+include_once(__DIR__ . "/../Model/ConfeiteiraDAO.php");
 
 
-class CadastrarFun
+class CadastrarConf
 {
     //Controller 
 
@@ -12,27 +12,28 @@ class CadastrarFun
         if (isset($_POST["enviar"])) {
             //formulário enviar foi enviado
 
-            $c = new Funcionario();
+            $c = new Confeiteira();
             $c->setNome($_POST["nome"]);
             $c->setCpf($_POST["cpf"]);
             $c->setEndereco($_POST["endereco"]);
             $c->setIdade($_POST["idade"]);
             $c->setCidade($_POST["cidade"]);
             $c->setTelefone($_POST["telefone"]);
+            $c->setEncomenda($_POST["encomenda"]);
 
 
-            $dao = new FuncionarioDAO();
+            $dao = new ConfeiteiraDAO();
             $dao->cadastrar($c);
 
-            $status = "Cadastro do funcionário " . $c->getNome() .
+            $status = "Cadastro de confeiteira(o) " . $c->getNome() .
                 " efetuado com sucesso";
 
             $lista = $dao->listar();
 
-             include_once(__DIR__ . "/../view/Lista_funcionario.php");
+            include_once(__DIR__ . "/../view/Lista_conf.php");
         } else {
 
-             include_once(__DIR__ . "/../view/AdminCadastrarFun.php");
+            include_once(__DIR__ . "/../view/cadastrarConf.php");
         }
     }
 }

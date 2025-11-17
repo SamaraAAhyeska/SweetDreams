@@ -3,7 +3,7 @@
 
 <?php
 
-include_once(__DIR__ . "/../model/FuncionarioDAO.php");
+include_once(__DIR__ . "/../Model/FuncionarioDAO.php");
 
 class ExcluirFun
 {
@@ -11,14 +11,14 @@ class ExcluirFun
     {
         // Verifica se o ID foi enviado
         if (!isset($_GET["id"])) {
-            echo "<h3 style='color:red;'>Erro: Nenhum cliente foi selecionado para exclusão.</h3>";
+            echo "<h3 style='color:red;'>Erro: Nenhum funcionario foi selecionado para exclusão.</h3>";
             return; // encerra a execução da função
         }
 
         $id = $_GET["id"];
         $dao = new FuncionarioDAO();
 
-        // Busca o cliente pelo ID
+        // Busca o funcionario pelo ID
         $cont = $dao->exibir($id);
 
         // Se foi confirmado

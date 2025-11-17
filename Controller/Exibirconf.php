@@ -1,8 +1,8 @@
 <?php
 
-include_once("Model/ClienteDAO_class.php");
+include_once("Model/ConfeiteiraDAO_class.php");
 
-class ExibirCliente
+class ExibirConf
 {
 
 	public function __construct()
@@ -10,6 +10,6 @@ class ExibirCliente
 
 		$dao = new ClienteDAO();
 		$cont = $dao->exibir($_GET["id"]);
-		include_once("view/ExibirCliente.php");
+		include_once("view/Exibirconf.php");
 	}
 }

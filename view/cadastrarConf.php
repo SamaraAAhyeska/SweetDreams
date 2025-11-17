@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cadastro de Cliente</title>
+  <title>Cadastro de funcionario</title>
   <style>
     body {
       margin: 0;
@@ -100,8 +100,8 @@
 </head>
 <body>
   <div class="cadastro-box">
-    <h2>Cadastro de Cliente</h2>
-      <form action="Cliente.php?fun=cadastrar" method="POST">
+    <h2>Cadastro de Confeiteira</h2> 
+      <form action="Confeiteira.php?fun=cadastrar" method="POST">
       <label for="nome">Nome</label>
       <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required />
 
@@ -120,6 +120,10 @@
       <label for="telefone">Telefone</label>
       <input type="text" id="telefone" name="telefone" placeholder="Digite seu telefone" required />
 
+      <label for="encomenda">Encomenda</label>
+      <input type="text" id="encomenda" name="encomenda" placeholder="Aceita encomenda? digite somente sim ou não" required />
+
+
       <!-- <label for="senha">Senha</label> -->
       <!-- <input type="password" id="senha" name="senha" placeholder="Crie uma senha" required /> -->
 
@@ -129,6 +133,9 @@
       <button type="submit" name="enviar" class="cadastro-btn">Cadastrar</button>
 </form>
 
+   <div class="login-link">
+     <!-- <p>Já tem uma conta? <a href="login.html">Voltar ao login</a></p>-->
+    </div>
   </div>
 </body>
 </html>

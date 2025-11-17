@@ -10,6 +10,6 @@ class ListarCliente
         $lista = $dao->listar();
         //array de objetos do tipo contato
 
-        include_once("view/Lista_Cliente.php");
+        include_once("view/Lista_cliente.php");
     }
 }

@@ -82,7 +82,7 @@
                 <td><?= $c->getTelefone(); ?></td>
                 <td class="acoes">
                     <a href="view/AdminAlterarFun.php?id=<?= $c->getId(); ?>">Editar</a>
-                    <a href="view/AdminConfirmarExclusao.php?id=<?= $c->getId(); ?>">Excluir</a>
+                    <a href="view/ConfirmarExclusaofun.php?id=<?= $c->getId(); ?>">Excluir</a>
                 </td>
             </tr>
         <?php endforeach; ?>
