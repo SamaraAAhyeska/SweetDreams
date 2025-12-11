@@ -17,6 +17,7 @@
     }
 
     .cadastro-box {
+      position: relative;
       background-color: #ffffff;
       padding: 40px 30px;
       border-radius: 12px;
@@ -28,6 +29,22 @@
       text-align: center;
       margin-bottom: 25px;
       color: #d81b60;
+    }
+
+    /* Link no canto superior direito */
+    .produtos-link {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 14px;
+      text-decoration: none;
+      color: #d81b60;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .produtos-link:hover {
+      text-decoration: underline;
     }
 
     label {
@@ -64,37 +81,33 @@
     .cadastro-btn:hover {
       background-color: #c2185b;
     }
-
-    .login-link {
-      text-align: center;
-      margin-top: 15px;
-      font-size: 14px;
-    }
-
-    .login-link a {
-      color: #d81b60;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .login-link a:hover {
-      text-decoration: underline;
-    }
   </style>
+  <script>
+    function abrirPopup() {
+      window.open(
+        'ConsultarProd.php', // página com a lista de produtos
+        'PopupProdutos',
+        'width=600,height=400,scrollbars=yes,resizable=yes'
+      );
+    }
+  </script>
 </head>
 <body>
   <div class="cadastro-box">
+    <!-- Link para abrir popup -->
+    <span class="produtos-link" onclick="abrirPopup()">Pesquisar Produtos</span>
+
     <h2>Cadastro de Estoque</h2>
 
-    <form action="Estoque.php?fun=cadastrar" method="POST">
+    <form action="../Estoque.php?fun=cadastrar" method="POST">
 
-      <label for="id_produto">ID do Produto</label>
-      <input type="number" id="id_produto" name="id_produto" placeholder="Informe o ID do produto" required />
+      <label for="produto">ID do Produto</label>
+      <input type="number" id="produto" name="produto" placeholder="Informe o ID do produto" required />
 
       <label for="quantidade">Quantidade</label>
       <input type="number" id="quantidade" name="quantidade" placeholder="Quantidade em estoque" required />
 
-            <button type="submit" name="enviar" class="cadastro-btn">Cadastrar</button>
+      <button type="submit" name="enviar" class="cadastro-btn">Cadastrar</button>
     </form>
   </div>
 </body>

@@ -113,17 +113,15 @@ if (!$Estoque) {
       <!-- ID oculto -->
       <input type="hidden" name="id_estoque" value="<?php echo $Estoque->getId_estoque(); ?>">
 
-      <label for="id_produto">ID do Produto</label>
-      <input type="number" id="id_produto" name="id_produto"
-        value="<?php echo $Estoque->getId_produto(); ?>" required />
+      <label for="id_prod">ID do Produto</label>
+      <input type="number" id="id_prod" name="id_prod"
+        value="<?php echo $Estoque->getId_prod(); ?>" required />
 
       <label for="quantidade">Quantidade</label>
       <input type="number" id="quantidade" name="quantidade"
         value="<?php echo $Estoque->getQuantidade(); ?>" required />
 
-      <label for="data_entrada">Data de Entrada</label>
-      <input type="date" id="data_entrada" name="data_entrada"
-        value="<?php echo $Estoque->getData_atualizacao(); ?>" required />
+
 
       <button type="submit" name="enviar" class="cadastro-btn">Salvar Alterações</button>
     </form>

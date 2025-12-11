@@ -1,9 +1,17 @@
+<?php
+include_once("../Model/PedidoDAO.php");
+
+$dao = new PedidoDAO();
+$lista = $dao->listar();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
-    <title>Listagem de Produtos</title>
+    <title>Listagem de Pedidos</title>
+
     <style>
         body {
             font-family: Arial;
@@ -50,34 +58,40 @@
 
 <body>
 
-    <?php
-    if (isset($status)) {
-        echo "<h2>$status</h2>";
-    }
-    ?>
+    <h2>Listagem de Pedidos</h2>
 
-    <a href="../Produto.php?fun=cadastrar">Cadastrar novo Produto</a>
+    <a href="FinalizarPed.php">Cadastrar novo Pedido</a>
     <br><br>
 
     <table>
         <tr>
             <th>ID</th>
-            <th>Nome</th>
-            <th>Descrição</th>
-            <th>Preço</th>
+            <th>Cliente</th>
+            <th>Produtos</th>
+            <th>Confeiteira</th>
+            <th>Veredito</th>
+            <th>Status</th>
             <th>Ações</th>
         </tr>
 
         <?php foreach ($lista as $p): ?>
             <tr>
-                <td><?= $p->getId_prod(); ?></td>
-                <td><a href="../Produto.php?fun=exibir&id_prod=<?= $p->getId_prod(); ?>"><?= $p->getNome(); ?></a></td>
-                <td><?= $p->getDescricao(); ?></td>
-                <td><?= $p->getPreco(); ?></td>
+                <td><?= $p->getIdPedido(); ?></td>
+                <td><?= $p->getNomeCliente(); ?></td>
+
+                <td>
+                    <pre style="white-space: pre-wrap;">
+<?= print_r(json_decode($p->getProdutos(), true), true); ?>
+                    </pre>
+                </td>
+
+                <td><?= $p->getIdConfeiteira(); ?></td>
+                <td><?= $p->getVeredito(); ?></td>
+                <td><?= $p->getStatus(); ?></td>
 
                 <td class="acoes">
-                    <a href="view/AlterarProd.php?id_prod=<?= $p->getId_prod(); ?>">Editar</a>
-                    <a href="view/ExcluirProd.php?id_prod=<?= $p->getId_prod(); ?>">Excluir</a>
+                    <a href="AlterarPedido.php?id_pedido=<?= $p->getIdPedido(); ?>">Editar</a>
+                    <a href="ExcluirPedido.php?id_pedido=<?= $p->getIdPedido(); ?>">Excluir</a>
                 </td>
             </tr>
         <?php endforeach; ?>
@@ -87,9 +101,3 @@
 </body>
 
 </html>
-
-<?php
-if (isset($_GET['status']) && !empty($_GET['status'])) {
-    echo "<h2 style='color:green; font-family:Arial;'>" . htmlspecialchars($_GET['status']) . "</h2>";
-}
-?>

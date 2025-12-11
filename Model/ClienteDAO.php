@@ -1,7 +1,7 @@
 <?php
 include_once("ConnectionFactory_class.php"); //PDO
 include_once("Cliente_class.php"); //entidade
-include_once(__DIR__ . "/../Model/ClienteDAO.php");
+
 
 class ClienteDAO
 {

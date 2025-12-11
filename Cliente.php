@@ -1,6 +1,9 @@
 <?php
+
+include_once(__DIR__ . "../Model/ClienteDAO.php");
+include_once(__DIR__ . "../Model/Cliente_class.php");
 session_start();
-//include_once("visao/topo.php");
+
 if (isset($_GET["fun"])) {
 
     $fun = $_GET["fun"];
@@ -33,4 +36,4 @@ if (isset($_GET["fun"])) {
     $pag = new ListarCliente();
 }
 
-//include_once("visao/base.php");
+?>

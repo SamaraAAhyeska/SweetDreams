@@ -186,12 +186,12 @@
     </div>
     <div id="listaCarrinho"></div>
     <div class="total-carrinho" id="totalCarrinho">Total: R$ 0,00</div>
-    <button class="finalizar-btn" onclick="irParaFinalizar()">Finalizar Compra</button>
+<button class="finalizar-btn" onclick="irParaFinalizarPed()">Finalizar Compra</button>
   </div>
 
   <main>
     <div class="produto">
-      <img src="images/brigadeiro.jpg" alt="Brigadeiro" />
+      <img src="imagens/brigadeiro.jpg" alt="Brigadeiro" />
       <h3>Brigadeiro Gourmet</h3>
       <p>Chocolate belga e confeitos especiais.</p>
       <strong>R$ 3,00</strong><br />
@@ -200,7 +200,7 @@
       </button>
     </div>
     <div class="produto">
-      <img src="images/bolo.jpg" alt="Bolo no Pote" />
+      <img src="imagens/bolo.jpg" alt="Bolo no Pote" />
       <h3>Bolo no Pote</h3>
       <p>Com recheio de morango e chantilly.</p>
       <strong>R$ 8,00</strong><br />
@@ -209,7 +209,7 @@
       </button>
     </div>
     <div class="produto">
-      <img src="images/trufa.jpg" alt="Trufa" />
+      <img src="imagens/trufa.jpg" alt="Trufa" />
       <h3>Trufa de Chocolate</h3>
       <p>Recheio cremoso meio amargo.</p>
       <strong>R$ 5,00</strong><br />
@@ -282,10 +282,11 @@
       modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
     }
 
-    function irParaFinalizar() {
-      localStorage.setItem('carrinho', JSON.stringify(carrinho));
-      window.location.href = 'finalizar.html';
-    }
+    function irParaFinalizarPed() {
+  localStorage.setItem('carrinho', JSON.stringify(carrinho));
+  window.location.href = '../view/FinalizarPed.php';
+}
+
   </script>
 </body>
 </html>

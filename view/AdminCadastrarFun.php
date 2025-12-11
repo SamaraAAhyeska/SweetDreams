@@ -101,7 +101,7 @@
 <body>
   <div class="cadastro-box">
     <h2>Cadastro de funcionario</h2>
-      <form action="funcionario.php?fun=cadastrar" method="POST">
+      <form action="Funcionario.php?fun=cadastrar" method="POST">
       <label for="nome">Nome</label>
       <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required />
 

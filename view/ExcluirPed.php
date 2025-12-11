@@ -1,46 +1,45 @@
 <?php
 require_once __DIR__ . "/../Model/ConnectionFactory_class.php";
-require_once __DIR__ . "/../Model/EstoqueDAO.php";
-require_once __DIR__ . "/../Model/Estoque_class.php";
+require_once __DIR__ . "/../Model/PedidoDAO.php";
+require_once __DIR__ . "/../Model/Pedido_class.php";
 
-// Instancia DAO
-$dao = new EstoqueDAO();
+// Instancia o DAO
+$dao = new PedidoDAO();
 
-// ------------------------------
+// -------------------------------------------
 // PASSO 1: Validar ID recebido
-// ------------------------------
-if (!isset($_GET['id_estoque']) || empty($_GET['id_estoque'])) {
-    header("Location: ../Estoque.php?fun=listar&status=" . urlencode("ID de estoque inválido!"));
+// -------------------------------------------
+if (!isset($_GET['id_pedido']) || empty($_GET['id_pedido'])) {
+    header("Location: ../Pedido.php?fun=listar&status=" . urlencode("ID de pedido inválido!"));
     exit;
 }
 
-$id = (int) $_GET['id_estoque'];
+$id = (int) $_GET['id_pedido'];
 
-// ------------------------------
-// PASSO 2: Buscar registro
-// ------------------------------
-$cont = $dao->buscarPorId($id);
+// -------------------------------------------
+// PASSO 2: Buscar pedido
+// -------------------------------------------
+$pedido = $dao->buscarPorId($id);
 
-if (!$cont) {
-    header("Location: ../Estoque.php?fun=listar&status=" . urlencode("Registro de estoque não encontrado!"));
+if (!$pedido) {
+    header("Location: ../Pedido.php?fun=listar&status=" . urlencode("Pedido não encontrado!"));
     exit;
 }
 
-// ------------------------------
+// -------------------------------------------
 // PASSO 3: Se confirmou exclusão → excluir
-// ------------------------------
+// -------------------------------------------
 if (isset($_GET['conf']) && $_GET['conf'] === 'sim') {
 
-    if ($dao->excluir($cont)) {
-        $status = "Estoque excluído com sucesso!";
+    if ($dao->excluir($id)) {
+        $status = "Pedido excluído com sucesso!";
     } else {
-        $status = "Erro ao excluir o estoque!";
+        $status = "Erro ao excluir o pedido!";
     }
 
-    header("Location: ../Estoque.php?fun=listar&status=" . urlencode($status));
+    header("Location: ../Pedido.php?fun=listar&status=" . urlencode($status));
     exit;
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -114,10 +113,10 @@ if (isset($_GET['conf']) && $_GET['conf'] === 'sim') {
             <h1>Confirmar Exclusão</h1>
 
             <p>
-                <strong>Produto ID:</strong> <?= htmlspecialchars($cont->getId_prod()); ?><br>
-                <strong>Quantidade:</strong> <?= htmlspecialchars($cont->getQuantidade()); ?><br><br>
+                <strong>ID do Pedido:</strong> <?= htmlspecialchars($pedido["id_pedido"]); ?><br>
+                <strong>Cliente:</strong> <?= htmlspecialchars($pedido["nome_cliente"]); ?><br><br>
 
-                Tem certeza que deseja excluir este registro de estoque? <br>
+                Tem certeza que deseja excluir este pedido?<br>
                 <strong>Essa ação é irreversível.</strong>
             </p>
 
@@ -129,12 +128,12 @@ if (isset($_GET['conf']) && $_GET['conf'] === 'sim') {
 
     <script>
         function cancelar() {
-            window.location.href = "../Estoque.php?fun=listar";
+            window.location.href = "../Pedido.php?fun=listar";
         }
 
         function confirmDelete() {
             window.location.href =
-                "ExcluirEstoque.php?id_estoque=<?= $cont->getId_estoque(); ?>&conf=sim";
+                "ExcluirPedido.php?id_pedido=<?= $pedido['id_pedido']; ?>&conf=sim";
         }
     </script>
 

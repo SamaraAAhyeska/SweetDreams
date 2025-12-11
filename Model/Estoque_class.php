@@ -1,8 +1,10 @@
 <?php
+include_once(__DIR__ . "/../Model/ProdutoDAO.php");
+
 class Estoque
 {
     private $id_estoque;
-    private $id_produto;
+    private $id_prod;
     private $quantidade;
     private $data_atualizacao; // apenas leitura
 
@@ -18,14 +20,14 @@ class Estoque
         return $this->id_estoque;
     }
 
-    // ID Produto
-    public function setId_produto($id)
+        // ID Produto
+    public function setId_prod($id)
     {
-        $this->id_produto = $id;
+        $this->id_prod = $id;
     }
-    public function getId_produto()
+    public function getId_prod()
     {
-        return $this->id_produto;
+        return $this->id_prod;
     }
 
     // Quantidade
@@ -49,3 +51,4 @@ class Estoque
         $this->data_atualizacao = $data;
     }
 }
+       

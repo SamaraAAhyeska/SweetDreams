@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cadastro de Produto</title>
+  <title>Login</title>
   <style>
     body {
       margin: 0;
@@ -16,7 +17,7 @@
       height: 100vh;
     }
 
-    .cadastro-box {
+    .login-box {
       background-color: #ffffff;
       padding: 40px 30px;
       border-radius: 12px;
@@ -24,7 +25,7 @@
       width: 350px;
     }
 
-    .cadastro-box h2 {
+    .login-box h2 {
       text-align: center;
       margin-bottom: 25px;
       color: #d81b60;
@@ -38,7 +39,7 @@
     }
 
     input[type="text"],
-    input[type="number"],
+    input[type="email"],
     input[type="password"] {
       width: 100%;
       padding: 10px;
@@ -49,7 +50,7 @@
       outline: none;
     }
 
-    .cadastro-btn {
+    .login-btn {
       width: 100%;
       background-color: #ec407a;
       color: #fff;
@@ -61,61 +62,47 @@
       transition: background-color 0.3s;
     }
 
-    .cadastro-btn:hover {
+    .login-btn:hover {
       background-color: #c2185b;
     }
 
-    .login-link {
+    .extras {
       text-align: center;
       margin-top: 15px;
+    }
+
+    .extras a {
+      color: #ad1457;
       font-size: 14px;
-    }
-
-    .login-link a {
-      color: #d81b60;
       text-decoration: none;
-      font-weight: bold;
     }
 
-    .login-link a:hover {
+    .extras a:hover {
       text-decoration: underline;
-    }
-
-    .mensagem-sucesso {
-      margin-top: 15px;
-      text-align: center;
-      color: green;
-      font-weight: bold;
-      display: none;
-    }
-
-    .mensagem-erro {
-      margin-top: 10px;
-      text-align: center;
-      color: red;
-      font-weight: bold;
-      display: none;
     }
   </style>
 </head>
 <body>
-  <div class="cadastro-box">
-    <h2>Cadastro de Produtos</h2> 
-      <form action="../Produto.php?fun=cadastrar" method="POST">
-      <label for="nome">Nome</label>
-      <input type="text" id="nome" name="nome" placeholder="Digite o nome do produto" required />
+  <div class="login-box">
+    <h2>Entrar</h2>
 
-      <label for="descricao">Descricao</label>
-      <input type="text" id="descricao" name="descricao" placeholder="Digite uma descrição" required />
+<form action="../Controller/LoginC.php" method="POST">
 
-      <label for="Preco">Preco</label>
-      <input type="number" id="preco" name="preco" placeholder="Digite o valor do produto" step="0.01" required  />
-	
-        <button type="submit" name="enviar" class="cadastro-btn">Cadastrar</button>
-</form>
+      <label for="usuario">Usuário</label>
+      <input type="text" id="usuario" name="usuario" placeholder="Seu usuário" required>
+
+      <label for="password">Senha</label>
+      <input type="password" id="password" name="senha" placeholder="••••••••" required>
+     
 
 
+      <button type="submit" class="login-btn">Entrar</button>
+
+      <div class="extras">
+        <a href="#">Esqueceu a senha?</a>
+      </div>
+
+    </form>
   </div>
 </body>
 </html>
-

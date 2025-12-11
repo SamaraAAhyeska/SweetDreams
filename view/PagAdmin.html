@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Área Administrativa</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: linear-gradient(to right, #fce4ec, #f8bbd0);
+        }
+
+        header {
+            background-color: #d81b60;
+            padding: 20px;
+            color: white;
+            text-align: center;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #c2185b;
+        }
+
+        h2 {
+            color: #880e4f;
+            text-align: center;
+        }
+
+        .menu {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .card {
+            width: 45%;
+            background: #f8bbd0;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 0 8px #ba2d65;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            background: #f48fb1;
+            transform: scale(1.05);
+        }
+
+        .card a {
+            text-decoration: none;
+            color: #880e4f;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 10px;
+            color: #880e4f;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    Painel Administrativo
+</header>
+
+<div class="container">
+    <h2>Gerenciar Cadastros</h2>
+
+    <div class="menu">
+
+        <div class="card">
+            <a href="Lista_cliente.php">Clientes</a>
+        </div>
+
+        <div class="card">
+            <a href="Lista_funcionario.php">Funcionários</a>
+        </div>
+
+        <div class="card">
+            <a href="Lista_conf.php">Confeiteiros</a>
+        </div>
+
+        <div class="card">
+            <a href="listaEstoque.php">Estoque</a>
+        </div>
+
+        <div class="card">
+            <a href="ListaProd.php">Produtos</a>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    Sweet Dreams © <?= date("Y"); ?>
+</footer>
+
+</body>
+</html>

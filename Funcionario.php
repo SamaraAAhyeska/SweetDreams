@@ -1,6 +1,6 @@
 <?php
 session_start();
-//include_once("visao/topo.php");
+
 if (isset($_GET["fun"])) {
 
     $fun = $_GET["fun"];
@@ -33,4 +33,4 @@ if (isset($_GET["fun"])) {
     $pag = new Listarfun();
 }
 
-//include_once("visao/base.php");
+?>

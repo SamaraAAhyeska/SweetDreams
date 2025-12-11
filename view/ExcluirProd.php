@@ -1,25 +1,25 @@
 <?php
 require_once __DIR__ . "/../Model/ConnectionFactory_class.php";
-require_once __DIR__ . "/../Model/EstoqueDAO.php";
-require_once __DIR__ . "/../Model/Estoque_class.php";
+require_once __DIR__ . "/../Model/ProdutoDAO.php";
+require_once __DIR__ . "/../Model/Produto_class.php";
 
 // Criar conexão + DAO
-$dao = new EstoqueDAO();
+$dao = new ProdutoDAO();
 $conn = $dao->con;
 
 // Passo 1: validar ID
-if (!isset($_GET['id_estoque']) || empty($_GET['id_estoque'])) {
-    header("Location: ../Estoque.php?fun=listar&status=" . urlencode("ID inválido!"));
+if (!isset($_GET['id_prod']) || empty($_GET['id_prod'])) {
+    header("Location: ../Produto.php?fun=listar&status=" . urlencode("ID inválido!"));
     exit;
 }
 
-$id = (int) $_GET['id_estoque'];
+$id = (int) $_GET['id_prod'];
 
 // Passo 2: buscar registro
 $cont = $dao->buscarPorId($id);
 
 if (!$cont) {
-    header("Location: ../Estoque.php?fun=listar&status=" . urlencode("Registro de estoque não encontrado!"));
+    header("Location: ../Produto.php?fun=listar&status=" . urlencode("Registro de Produto não encontrado!"));
     exit;
 }
 
@@ -27,12 +27,12 @@ if (!$cont) {
 if (isset($_GET['conf']) && $_GET['conf'] === 'sim') {
 
     if ($dao->excluir($cont)) {
-        $status = "Estoque excluído com sucesso!";
+        $status = "Produto excluído com sucesso!";
     } else {
         $status = "Erro ao excluir o registro!";
     }
 
-    header("Location: ../Estoque.php?fun=listar&status=" . urlencode($status));
+    header("Location: ../Produto.php?fun=listar&status=" . urlencode($status));
     exit;
 }
 ?>
@@ -104,11 +104,11 @@ if (isset($_GET['conf']) && $_GET['conf'] === 'sim') {
     <div class="modal">
         <div class="modal-content">
 
-            <h1>Excluir registro de estoque?</h1>
+            <h1>Excluir registro de Produto?</h1>
 
             <p>
-                Produto ID: <b><?= htmlspecialchars($cont->getId_produto()); ?></b><br>
-                Quantidade: <b><?= htmlspecialchars($cont->getQuantidade()); ?></b><br><br>
+                Produto: <b><?= htmlspecialchars($cont->getNome()); ?></b><br>
+                Descrição: <b><?= htmlspecialchars($cont->getDescricao()); ?></b><br><br>
                 Tem certeza de que deseja excluir este registro? <br>
                 <strong>Esta ação não pode ser desfeita.</strong>
             </p>
@@ -121,12 +121,12 @@ if (isset($_GET['conf']) && $_GET['conf'] === 'sim') {
 
     <script>
         function cancelar() {
-            window.location.href = "../Estoque.php?fun=listar";
+            window.location.href = "../Produto.php?fun=listar";
         }
 
         function confirmDelete() {
             window.location.href =
-                "ExcluirEstoque.php?id_estoque=<?= $cont->getId_estoque(); ?>&conf=sim";
+                "ExcluirProd.php?id_prod=<?= $cont->getId_prod(); ?>&conf=sim";
         }
     </script>
 

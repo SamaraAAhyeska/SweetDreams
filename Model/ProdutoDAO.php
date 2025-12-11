@@ -172,4 +172,19 @@ public function excluir($cont)
             return null;
         }
     }
+    public function buscarNomePorId($id_prod)
+{
+    try {
+        $stmt = $this->con->prepare("SELECT nome FROM produto WHERE id_prod = :id");
+        $stmt->bindValue(":id", $id_prod, PDO::PARAM_INT);
+        $stmt->execute();
+        $dado = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $dado ? $dado['nome'] : "Produto não encontrado";
+
+    } catch (PDOException $ex) {
+        return "Erro ao buscar nome";
+    }
+}
+
 }

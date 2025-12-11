@@ -2,7 +2,7 @@
 
 include_once("Model/EstoqueDAO_class.php");
 
-class ExibirFun
+class ExibirEst
 {
 
 	public function __construct()

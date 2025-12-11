@@ -18,28 +18,28 @@ if (isset($_GET["fun"])) {
     } elseif ($fun == "excluir") {
 
         include_once("Controller/ExcluirEstoque.php");
-        $pag = new ExcluirEstoque();
+        $pag = new excluirEst();
 
     } elseif ($fun == "listar") {
 
-        include_once("Controller/ListarEstoque.php");
-        $pag = new ListarEstoque();
+        include_once("Controller/Listar_estoque.php");
+        $pag = new ListarEst();
 
     } elseif ($fun == "exibir") {
 
         include_once("Controller/ExibirEstoque.php");
-        $pag = new ExibirEstoque();
+        $pag = new ExibirEst();
 
     } else {
 
         include_once("Controller/ListarEstoque.php");
-        $pag = new ListarEstoque();
+        $pag = new ListarEst();
     }
 
 } else {
 
     include_once("Controller/ListarEstoque.php");
-    $pag = new ListarEstoque();
+    $pag = new ListarEst();
 }
 
 ?>

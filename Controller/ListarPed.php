@@ -1,15 +1,15 @@
 <?php
-include_once("Model/EstoqueDAO.php");
+include_once("Model/PedidoDAO.php");
 
-class ListarEst
+class ListarPed
 {
 
     public function __construct()
     {
-        $dao = new EstoqueDAO();
+        $dao = new PedidoDAO();
         $lista = $dao->listar();
         //array de objetos do tipo contato
 
-        include_once("view/listaEstoque.php");
+        include_once("view/ListarPed.php");
     }
 }
