@@ -14,7 +14,7 @@ if (isset($_GET['id_prod'])) {
 // Se não encontrou o Produto, exibe mensagem e sai
 if (!$Produto) {
   echo "<h2>Produto não encontrado!</h2>";
-  echo '<p><a href="listaProd.php">Voltar à lista de Produtos</a></p>';
+  echo '<p><a href="ListaProd.php">Voltar à lista de Produtos</a></p>';
   exit;
 }
 ?>
@@ -129,7 +129,7 @@ if (!$Produto) {
     </form>
 
     <div class="voltar-link">
-      <p><a href="view/ListaProd.php">Voltar à lista de Produtos</a></p>
+      <p><a href="ListaProd.php">Voltar à lista de Produtos</a></p>
     </div>
   </div>
 </body>

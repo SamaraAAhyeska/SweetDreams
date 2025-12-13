@@ -1,87 +1,66 @@
-describe('Cadastro de Produto - SweetDreams', () => {
+describe('Fluxo Completo: Cadastro de Estoque com Simulação de Popup', () => {  
 
-  it('Deve cadastrar, editar e alterar cor dos elementos', () => {
+  it('Deve abrir página admine cadastrar estoque', () => {
 
-    cy.visit('http://localhost/SweetDreamsnovo/view/CadastrarProd.php')
 
-    cy.contains('h2', 'Cadastro de Produtos').should('be.visible')
+    cy.visit('http://localhost/SweetDreamsnovo/view/Login.php')
 
-    cy.get('#nome').type('Brigadeiro de limão')
-    cy.get('#descricao').type('kit com 10 unidades')
-    cy.get('#preco').type('23.85')
+    // Preenche usuário e senha
+    cy.get('#usuario').type('admin')
+    cy.get('#password').type('admin')
+    cy.contains('button', 'Entrar').click()
+    cy.wait(4000)
 
+
+      cy.contains('h2', 'Gerenciar Cadastros').should('be.visible')
+       cy.wait(10000)
+        cy.contains("a", "Estoque").click()
+            cy.wait(7000)
+
+describe('Cadastro de Estoque com Popup - SweetDreams', () => {
+
+  it('Deve abrir popup (simulado), aguardar e cadastrar estoque', () => {
+
+    // --- Acessa a página de cadastro de estoque ---
+    cy.visit('http://localhost/SweetDreamsnovo/view/cadastrarEstoque.php')
+
+    // Validação da página
+    cy.url().should('include', 'cadastrarEstoque.php')
+    cy.contains('h2', 'Cadastro de Estoque').should('be.visible')
+    cy.wait(5000)
+
+    // --- Abre o popup diretamente (Consulta de Produtos) ---
+    cy.visit('http://localhost/SweetDreamsnovo/view/ConsultarProd.php')
+
+    // Validação do conteúdo do popup
+    cy.contains('Produtos Cadastrados').should('be.visible')
+
+    // Aguarda 10 segundos simulando leitura do popup
+    cy.wait(10000)
+
+    // --- Volta para a página de cadastro de estoque ---
+    cy.visit('http://localhost/SweetDreamsnovo/view/cadastrarEstoque.php')
+
+    // Validação da página de cadastro novamente
+    cy.url().should('include', 'cadastrarEstoque.php')
+    cy.contains('h2', 'Cadastro de Estoque').should('be.visible')
+
+    // --- Preenche o formulário de cadastro ---
+    cy.get('#produto').type('6')          // ID do produto
+    cy.get('#quantidade').type('10')      // Quantidade
+
+    // --- Submete o cadastro ---
     cy.contains('button', 'Cadastrar').click()
-    cy.wait(2000)
 
-    // --- ALTERAR COR + ESCOLHER UM EDITAR ALEATÓRIO ---
-    cy.contains('a', 'Editar').then($links => {
+    // --- Validação pós-cadastro ---
+    // Se houver mensagem de sucesso no PHP:
+    // cy.contains('Produto cadastrado com sucesso').should('be.visible')
 
-      const total = $links.length
-      expect(total).to.be.greaterThan(0)
-
-      const indiceAleatorio = Math.floor(Math.random() * total)
-      cy.log("Índice escolhido: " + indiceAleatorio)
-
-      cy.wrap($links.eq(indiceAleatorio))
-        .should('be.visible')
-        .then($el => { 
-          $el[0].style.color = 'blue'
-          return cy.wrap($el)      // 🔥 FIX NECESSÁRIO
-          cy.wait(3000)
-        })
-        .should('have.css', 'color', 'rgb(0, 0, 255)')
-        .click()
-
-    })
-    cy.get('#descricao').type(' kit com 10 unidades')
-        cy.get('#preco').clear().type('23.85')
-
-    cy.contains('button', 'Salvar')
-      .should('be.visible')
-      .then($btn => {
-        $btn[0].style.color = 'blue'
-        return cy.wrap($btn)       // 🔥 Mantive a mesma lógica correta
-      })
-      .should('have.css', 'color', 'rgb(0, 0, 255)')
-      cy.wait(2000)
-      
-
-    cy.contains('button', 'Salvar').click()
-         cy.wait(2000)
-
-    cy.contains('a', 'Excluir').then($links => {
-
-      const total = $links.length
-      expect(total).to.be.greaterThan(0)
-
-      const indiceAleatorio = Math.floor(Math.random() * total)
-      cy.log("Índice escolhido: " + indiceAleatorio)
-
-      cy.wrap($links.eq(indiceAleatorio))
-        .should('be.visible')
-        .then($el => { 
-            cy.wait(2000)
-          $el[0].style.color = 'blue'
-          return cy.wrap($el)      // 🔥 FIX NECESSÁRIO
-        })
-        .should('have.css', 'color', 'rgb(0, 0, 255)')
-        .click()
-         cy.wait(10000)
-          cy.contains('button', 'Não')
-      .should('be.visible')
-      .then($btn => {
-        $btn[0].style.color = 'blue'
-        return cy.wrap($btn)       // 🔥 Mantive a mesma lógica correta
-      })
-      .should('have.css', 'color', 'rgb(0, 0, 255)')
-      cy.wait(2000)
-    cy.contains('button', 'Não').click()
-        
-         
-
-
-
-    })
+    // Confirma que ainda está na página de cadastro
+    cy.contains('Estoque').should('be.visible')
   })
+
+})
+})
 
 })

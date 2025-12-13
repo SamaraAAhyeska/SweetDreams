@@ -1,3 +1,11 @@
+<?php
+include_once __DIR__ . "/../Model/ConfeiteiraDAO.php";
+include_once __DIR__ . "/../Model/Confeiteira_class.php";
+
+$confDAO = new ConfeiteiraDAO();
+$lista = $confDAO->listar(); // ← sem isso o foreach quebra
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -56,7 +64,7 @@
     }
     ?>
 
-    <a href="Confeiteira.php?fun=cadastrar">Cadastrar Nova(o) Confeiteira(o)</a>
+    <a href="../Confeiteira.php?fun=cadastrar">Cadastrar Nova(o) Confeiteira(o)</a>
     <br><br>
 
     <table>
@@ -83,8 +91,8 @@
                 <td><?= $c->getTelefone(); ?></td>
                 <td><?= $c->getEncomenda(); ?></td>
                 <td class="acoes">
-                    <a href="view/AlterarConf.php?id=<?= $c->getId(); ?>">Editar</a>
-                    <a href="view/ExcluirConf.php?id=<?= $c->getId(); ?>">Excluir</a>
+                    <a href="AlterarConf.php?id=<?= $c->getId(); ?>">Editar</a>
+                    <a href="ExcluirConf.php?id=<?= $c->getId(); ?>">Excluir</a>
                 </td>
             </tr>
         <?php endforeach; ?>

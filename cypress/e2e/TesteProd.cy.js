@@ -1,10 +1,22 @@
-describe('Cadastro de Produto - SweetDreams', () => {
+describe('Fluxo Completo: Login e Cadastro de Estoque com Simulação de Popup', () => {
 
-  it('Deve cadastrar, editar e alterar cor dos elementos', () => {
+  it('Deve fazer login, simular a abertura do popup (Pesquisar Produtos), aguardar e cadastrar o estoque', () => {
 
-    cy.visit('http://localhost/SweetDreamsnovo/view/CadastrarProd.php')
+    // --- 1. LOGIN ---
+    cy.visit('http://localhost/SweetDreamsnovo/view/Login.php')
 
-    cy.contains('h2', 'Cadastro de Produtos').should('be.visible')
+    // Preenche usuário e senha
+    cy.get('#usuario').type('admin')
+    cy.get('#password').type('admin')
+    cy.contains('button', 'Entrar').click()
+    cy.wait(4000)
+
+     cy.contains('h2', 'Gerenciar Cadastros').should('be.visible')
+     cy.contains("a", "Produtos").click()
+         cy.wait(7000)
+
+   cy.contains('a', 'Cadastrar novo Produto').click()
+cy.contains('h2', 'Cadastro de Produtos').should('be.visible')
 
     cy.get('#nome').type('Brigadeiro de limão')
     cy.get('#descricao').type('kit com 10 unidades')
@@ -76,7 +88,7 @@ describe('Cadastro de Produto - SweetDreams', () => {
 
       cy.wait(10000)
 
-      cy.contains('button', 'Não')
+      cy.contains('button', 'Excluir')
         .should('be.visible')
         .then($btn => {
           $btn[0].style.color = 'blue'
@@ -85,9 +97,13 @@ describe('Cadastro de Produto - SweetDreams', () => {
         .should('have.css', 'color', 'rgb(0, 0, 255)')
 
       cy.wait(2000)
-      cy.contains('button', 'Não').click()
+      cy.contains('button', 'Sim').click()
     })
 
-  })
 
+
+   
+
+  })
 })
+

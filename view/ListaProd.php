@@ -1,3 +1,13 @@
+<?php
+include_once __DIR__ . "/../Model/ProdutoDAO.php";
+include_once __DIR__ . "/../Model/Produto_class.php";
+
+$ProdutoDAO = new ProdutoDAO();
+$lista = $ProdutoDAO->listar();
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 

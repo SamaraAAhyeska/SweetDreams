@@ -13,3 +13,4 @@ class ExibirPed
 		include_once("view/ListarPed.php");
 	}
 }
+?>

@@ -1,5 +1,12 @@
 <?php
+include_once __DIR__ . "/../Model/EstoqueDAO.php";
+include_once __DIR__ . "/../Model/Estoque_class.php";
 include_once __DIR__ . "/../Model/ProdutoDAO.php";
+include_once __DIR__ . "/../Model/Produto_class.php";
+
+
+$EstoqueDAO = new EstoqueDAO();
+$lista = $EstoqueDAO->listar();
 $produtoDAO = new ProdutoDAO();
 ?>
 
@@ -73,7 +80,7 @@ $produtoDAO = new ProdutoDAO();
     <!-- Consultar Produtos (acima de Ações) -->
     <a class="btn-popup"
        href="#"
-       onclick="window.open('view/ConsultarProd.php',
+       onclick="window.open('ConsultarProd.php',
        'popup',
        'width=900,height=600,scrollbars=yes');">
         Consultar Produtos
@@ -101,8 +108,8 @@ $produtoDAO = new ProdutoDAO();
             <td><?= $e->getQuantidade(); ?></td>
 
             <td>
-                <a href="view/AlterarEstoque.php?id_estoque=<?= $e->getId_estoque(); ?>">Editar</a> |
-                <a href="view/ExcluirEstoque.php?id_estoque=<?= $e->getId_estoque(); ?>">Excluir</a>
+                <a href="AlterarEstoque.php?id_estoque=<?= $e->getId_estoque(); ?>">Editar</a> |
+                <a href="ExcluirEstoque.php?id_estoque=<?= $e->getId_estoque(); ?>">Excluir</a>
             </td>
 
         </tr>

@@ -1,3 +1,11 @@
+<?php
+
+include_once(__DIR__ . "/../Model/FuncionarioDAO.php");
+include_once(__DIR__ . "/../Model/Funcionario_class.php");
+$FuncionarioDAO = new FuncionarioDAO();
+$lista = $FuncionarioDAO->listar();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -56,7 +64,7 @@
     }
     ?>
 
-    <a href="Funcionario.php?fun=cadastrar">Cadastrar Novo Funcionario</a>
+    <a href="../Funcionario.php?fun=cadastrar">Cadastrar Novo Funcionario</a>
     <br><br>
 
     <table>

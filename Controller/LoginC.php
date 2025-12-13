@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         $_SESSION['usuario'] = $dados['usuario'];
 
-        header("Location: ../view/cadastrarEstoque.php");
+        header("Location: ../view/PagAdmin.html");
         ob_end_flush();
         exit;
     }

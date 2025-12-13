@@ -1,15 +1,17 @@
 <?php
-include_once("Model/ProdutoDAO.php");
+include_once __DIR__ . "/../Model/ProdutoDAO.php";
+include_once __DIR__ . "/../Model/Produto_class.php";
 
 class ListarProd
 {
-
     public function __construct()
     {
-        $dao = new ProdutoDAO();
-        $lista = $dao->listar();
-        //array de objetos do tipo contato
+        $ProdutoDAO = new ProdutoDAO();
+        $lista = $ProdutoDAO->listar();
 
-        include_once("view/ListaProd.php");
+        // envia lista para a view
+        include_once __DIR__ . "/../view/ListaProd.php";
     }
 }
+
+new ListarProd();
